@@ -1,44 +1,70 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Parsed Records - {{ filename }}</title>
-  <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      padding: 8px;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-  </style>
+    <title>Parsed Table - {{ filename }}</title>
+
+   
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.0/css/dataTables.dataTables.min.css">
+
+    <script src="https://cdn.datatables.net/2.3.0/js/dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            
+            padding: 20px;
+        }
+        table {
+            width: 80%;
+            background-color: #e0f7fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table th, td{
+            background-color: #e1f5fe;
+            border: 1px solid #0288d1;
+            color: black;
+            padding: 10px;
+            text-align: left;
+        }
+
+       
+
+    </style>
 </head>
 <body>
-  <h1>Parsed Records from {{ filename }}</h1>
-  {% if records %}
-  <table>
-    <thead>
-      <tr>
-        {% for key in records[0].keys() %}
-        <th>{{ key }}</th>
-        {% endfor %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for row in records %}
-      <tr>
-        {% for value in row.values() %}
-        <td>{{ value }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% else %}
-    <p>No records found in this file.</p>
-  {% endif %}
-  <br>
-  <a href="/">← Back to Upload</a>
+    <h2>Parsed Records from: {{ filename }}</h2>
+
+    <table id="data-table" class="display">
+        <thead>
+            <tr>
+                {% for key in records[0].keys() %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    {% for value in record.values() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+   <script>
+    
+        $(document).ready(function() {
+            $('#data-table').DataTable();
+        });
+    </script>
+
+
+
+
 </body>
 </html>
